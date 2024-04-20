@@ -1,0 +1,96 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block main_content %}
+
+      <!-- Display paragraph: If there are no recipes yet-->
+      {% if not recipes %}
+      <p class="no-articles">There are currently no recipes available.</p>
+
+      <!-- Display a card with information about each recipe (if any)-->
+      {% else %}
+          {% for recipe in recipes %}
+      <section id="catalogue">
+        <!-- first recipe-->
+        <div class="recipe-card">
+          <div class="image-wrap">
+            <!-- recipe image -->
+            <!-- if there is no image url provided, display the default recipe image -->
+            {% if not recipe.image_url %}
+
+            <img
+              class="recipe-img"
+              src="{% static 'images/default_recipe_img.png' %}"
+              alt="default recipe image"
+            />
+
+            {% else %}
+
+            <img
+              class="recipe-img"
+              src="{{ recipe.image_url }}"
+              alt="{{ recipe.title }} image"
+            />
+            {% endif %}
+          </div>
+          <!-- recipe title -->
+          <h3>{{ recipe.title }}</h3>
+          <!-- recipe cooking time -->
+          <h1>Cooking time: {{ recipe.cooking_time }}min.</h1>
+          <!-- recipe instructions -->
+          <h1>{{ recipe.instructions|truncatechars:35 }}</h1>
+          <div class="details-buttons">
+            <!-- recipe details button -->
+            <a href="{% url 'recipe_details' pk=recipe.pk %}" class="details-btn">Details</a>
+          </div>
+        </div>
+          {% endfor %}
+{#        <!-- second recipe-->#}
+{#        <div class="recipe-card">#}
+{#          <div class="image-wrap">#}
+{#            <!-- recipe image -->#}
+{#            <!-- if there is no image url provided, display the default recipe image -->#}
+{##}
+{#            <img#}
+{#              class="recipe-img"#}
+{#              src="/static/images/default_recipe_img.png"#}
+{#              alt="recipe image"#}
+{#            />#}
+{#          </div>#}
+{#          <!-- recipe title -->#}
+{#          <h3>Pasta Aglio e Olio</h3>#}
+{#          <!-- recipe cooking time -->#}
+{#          <h1>Cooking time: 25min.</h1>#}
+{#          <!-- recipe instructions -->#}
+{#          <h1>Cook spaghetti according to packag…</h1>#}
+{#          <div class="details-buttons">#}
+{#            <!-- recipe details button -->#}
+{#            <a href="" class="details-btn">Details</a>#}
+{#          </div>#}
+{#        </div>#}
+{##}
+{#        <!-- third recipe-->#}
+{#        <div class="recipe-card">#}
+{#          <div class="image-wrap">#}
+{#            <!-- recipe image -->#}
+{#            <!-- if there is no image url provided, display the default recipe image -->#}
+{##}
+{#            <img#}
+{#              class="recipe-img"#}
+{#              src="/static/images/default_recipe_img.png"#}
+{#              alt="recipe image"#}
+{#            />#}
+{#          </div>#}
+{#          <!-- recipe title -->#}
+{#          <h3>Avocado Toast</h3>#}
+{#          <!-- recipe cooking time -->#}
+{#          <h1>Cooking time: 12min.</h1>#}
+{#          <!-- recipe instructions -->#}
+{#          <h1>Toast slices of whole grain bread …</h1>#}
+{#          <div class="details-buttons">#}
+{#            <!-- recipe details button -->#}
+{#            <a href="" class="details-btn">Details</a>#}
+{#          </div>#}
+{#        </div>#}
+      </section>
+      {% endif %}
+{% endblock %}
